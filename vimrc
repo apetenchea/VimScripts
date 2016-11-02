@@ -119,3 +119,10 @@ syntax on
 highlight LineNr ctermfg=LightGray
 
 "}}}
+
+" Plugins {{{
+
+" Run pathogen
+execute pathogen#infect()
+
+"}}}
