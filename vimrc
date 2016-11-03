@@ -47,6 +47,9 @@ set noexpandtab
 " An indent corresponds to a single tab.
 set shiftwidth=2
 
+" Disable empty windows for mksession
+set sessionoptions-=blank
+
 "}}}
 
 " Autocommands {{{
@@ -124,5 +127,26 @@ highlight LineNr ctermfg=LightGray
 
 " Run pathogen
 execute pathogen#infect()
+
+" Shortcut for NERDTree
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Disable YCM's syntax checkers
+let g:ycm_show_diagnostics_ui=0
+
+" Recommended Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Syntastic checkers
+let g:syntastic_c_checkers=['gcc']
+let g:syntastic_java_checkers=['javac']
+let g:syntastic_asm_checkers=[]
 
 "}}}
