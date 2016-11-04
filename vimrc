@@ -134,13 +134,9 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 " Disable YCM's syntax checkers
 let g:ycm_show_diagnostics_ui=0
 
-" Recommended Syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
+" Syntastic settings
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
