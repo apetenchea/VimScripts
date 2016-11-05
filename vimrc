@@ -143,7 +143,8 @@ let g:syntastic_check_on_wq = 0
 " Syntastic checkers
 let g:syntastic_c_checkers=['gcc']
 let g:syntastic_java_checkers=['javac']
-let g:syntastic_asm_checkers=[]
 let g:syntastic_sh_checkers=['shellcheck']
+let g:syntastic_asm_checkers=[]
+let g:syntastic_ocaml_checkers=[]
 
 "}}}
