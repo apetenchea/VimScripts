@@ -131,6 +131,9 @@ execute pathogen#infect()
 " Shortcut for NERDTree
 nnoremap <C-n> :NERDTreeToggle<CR>
 
+" Don't ask before loading a .lvimrc file
+let g:localvimrc_ask=0
+
 " Disable YCM's syntax checkers
 let g:ycm_show_diagnostics_ui=0
 
