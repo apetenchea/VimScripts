@@ -72,7 +72,7 @@ if has("autocmd")
 
 else
 
-	" Set autoindenting on.
+	" Set autoindent on.
 	set autoindent
 
 endif
@@ -115,27 +115,43 @@ set background=dark
 " Set theme.
 colorscheme elflord
 
+
+" Disable preview window (pops up on autocomplete).
+set completeopt-=preview
+
 " Enable syntax highlighting.
 syntax on
 
 " Change the color of line numbers.
 highlight LineNr ctermfg=LightGray
 
+" Change autocomplete window colors.
+highlight Pmenu ctermfg=white ctermbg=black
+
 "}}}
 
 " Plugins {{{
 
-" Run pathogen
+" Run pathogen.
 execute pathogen#infect()
 
 " Shortcut for NERDTree
 nnoremap <C-n> :NERDTreeToggle<CR>
 
-" Don't ask before loading a .lvimrc file
+" Don't ask before loading a .lvimrc file.
 let g:localvimrc_ask=0
 
-" Disable YCM's syntax checkers
+" Do not load lvimrc file in sandbox.
+let g:localvimrc_sandbox=0
+
+" Disable YCM's syntax checkers.
 let g:ycm_show_diagnostics_ui=0
+
+" Eclim completion to be used by YCM
+let g:EclimCompletionMethod='omnifunc'
+
+" Disable Eclim automatic validation.
+let g:EclimFileTypeValidate=0
 
 " Syntastic settings
 let g:syntastic_always_populate_loc_list = 1
