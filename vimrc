@@ -101,9 +101,9 @@ inoremap kl <C-G>u{<CR>}<ESC>O
 nnoremap <UP> <C-Y>
 nnoremap <DOWN> <C-E>
 
-" Block indentation.
-nnoremap <LEFT> <iB
-nnoremap <RIGHT> >iB
+" Move through splits.
+nnoremap <LEFT> <C-w>h
+nnoremap <RIGHT> <C-w>l
 
 "}}}
 
