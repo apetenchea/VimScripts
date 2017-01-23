@@ -15,7 +15,7 @@ set nocompatible
 " Settings {{{
 
 " Set folding.
-set foldmethod=marker
+setlocal foldmethod=marker
 
 " Allow backspacing over everything in insert mode.
 set backspace=indent,eol,start
@@ -32,9 +32,6 @@ set nowrap
 " Display line numbers.
 set number
 
-" Display line numbers relative to the current line.
-set relativenumber
- 
 " Set the width of the column containing line numbers.
 set numberwidth=1
 
