@@ -15,7 +15,7 @@ set nocompatible
 " Settings {{{
 
 " Set folding.
-setlocal foldmethod=marker
+set foldmethod=marker
 
 " Allow backspacing over everything in insert mode.
 set backspace=indent,eol,start
