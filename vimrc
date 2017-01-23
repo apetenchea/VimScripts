@@ -135,7 +135,7 @@ highlight Pmenu ctermfg=white ctermbg=black
 " Run pathogen.
 execute pathogen#infect()
 
-" Shortcut for NERDTree
+" Shortcut for NERDTree.
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 " Don't ask before loading a .lvimrc file.
@@ -147,22 +147,29 @@ let g:localvimrc_sandbox=0
 " Disable YCM's syntax checkers.
 let g:ycm_show_diagnostics_ui=0
 
+" Set Python 2 interpreter path.
+let g:ycm_server_python_interpreter='/usr/bin/python2'
+
+" Provide Python 3 completion.
+let g:ycm_python_binary_path='/usr/bin/python3'
+
 " Eclim completion to be used by YCM
 let g:EclimCompletionMethod='omnifunc'
 
 " Disable Eclim automatic validation.
 let g:EclimFileTypeValidate=0
 
-" Syntastic settings
+" Syntastic settings.
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" Syntastic checkers
+" Syntastic checkers.
 let g:syntastic_c_checkers=['gcc']
 let g:syntastic_java_checkers=['javac']
 let g:syntastic_sh_checkers=['shellcheck']
+let g:syntastic_python_checkers=['python']
 let g:syntastic_asm_checkers=[]
 let g:syntastic_ocaml_checkers=[]
 
