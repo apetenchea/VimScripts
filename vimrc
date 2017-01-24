@@ -163,7 +163,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Syntastic checkers.
-let g:syntastic_c_checkers=['gcc']
+let g:syntastic_c_checkers=['clang_check','clang_tidy']
 let g:syntastic_java_checkers=['javac']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_python_checkers=['python']
