@@ -170,5 +170,6 @@ let g:syntastic_python_checkers=['python']
 let g:syntastic_asm_checkers=[]
 let g:syntastic_ocaml_checkers=[]
 let g:syntastic_html_checkers=['w3']
+let g:syntastic_php_checkers=['php']
 
 "}}}
