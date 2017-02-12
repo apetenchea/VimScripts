@@ -157,10 +157,13 @@ let g:EclimCompletionMethod='omnifunc'
 let g:EclimFileTypeValidate=0
 
 " Syntastic settings.
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map={'mode':'active',
+                         \'active_filetypes':[],
+												 \'passive_filetypes': ['html']}
 
 " Syntastic checkers.
 let g:syntastic_c_checkers=['clang_check','clang_tidy']
