@@ -165,13 +165,17 @@ let g:syntastic_mode_map={'mode':'active',
                          \'active_filetypes':[],
 												 \'passive_filetypes': ['html']}
 
+" Merlin for ocaml
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
 " Syntastic checkers.
 let g:syntastic_c_checkers=['clang_check','clang_tidy']
 let g:syntastic_java_checkers=['javac']
 let g:syntastic_sh_checkers=['shellcheck']
 let g:syntastic_python_checkers=['python']
 let g:syntastic_asm_checkers=[]
-let g:syntastic_ocaml_checkers=[]
+let g:syntastic_ocaml_checkers=['merlin']
 let g:syntastic_html_checkers=['w3']
 let g:syntastic_php_checkers=['php']
 
