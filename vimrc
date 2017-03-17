@@ -165,7 +165,7 @@ let g:syntastic_mode_map={'mode':'active',
                          \'active_filetypes':[],
 												 \'passive_filetypes': ['html']}
 
-" Merlin for ocaml
+" Setting up Merlin for OCaml
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
