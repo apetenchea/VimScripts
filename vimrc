@@ -38,8 +38,8 @@ set numberwidth=1
 " Tab characters appear 2 spaces wide.
 set tabstop=2
 
-" Use tab character.
-set noexpandtab
+" Use spaces instead of tab.
+set expandtab
 
 " An indent corresponds to a single tab.
 set shiftwidth=2
@@ -54,23 +54,23 @@ set sessionoptions-=blank
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
-	" Load indentation rules and plugins according to the detected filetype.
-	filetype plugin indent on
+  " Load indentation rules and plugins according to the detected filetype.
+  filetype plugin indent on
 
-	augroup vimrc
-		autocmd!
+  augroup vimrc
+    autocmd!
 
-		" When editiong a file, always jump to the last known cursor position.
-		autocmd BufReadPost *
-			\ if line("'\"") > 1 && line("'\"") <= line("$") |
-			\ 	exe "normal! g'\"" |
-			\ endif
-	augroup END
+    " When editiong a file, always jump to the last known cursor position.
+    autocmd BufReadPost *
+          \ if line("'\"") > 1 && line("'\"") <= line("$") |
+          \ 	exe "normal! g'\"" |
+          \ endif
+  augroup END
 
 else
 
-	" Set autoindent on.
-	set autoindent
+  " Set autoindent on.
+  set autoindent
 
 endif
 
@@ -79,10 +79,10 @@ endif
 " Variables {{{
 
 " Leader key for mappings.
-let mapleader=','
+let mapleader = ','
 
 " Leader key for file type specific mappings.
-let maplocalleader="-"
+let maplocalleader = "-"
 
 "}}}
 
@@ -136,47 +136,47 @@ execute pathogen#infect()
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 " Don't ask before loading a .lvimrc file.
-let g:localvimrc_ask=0
+let g:localvimrc_ask = 0
 
-" Do not load lvimrc file in sandbox.
-let g:localvimrc_sandbox=0
+" Disable sandbox mode.
+let g:localvimrc_sandbox = 0
 
 " Disable YCM's syntax checkers.
-let g:ycm_show_diagnostics_ui=0
+let g:ycm_show_diagnostics_ui = 0
 
 " Set Python 2 interpreter path.
-let g:ycm_server_python_interpreter='/usr/bin/python2'
+let g:ycm_server_python_interpreter = '/usr/bin/python2'
 
 " Provide Python 3 completion.
-let g:ycm_python_binary_path='/usr/bin/python3'
+let g:ycm_python_binary_path = '/usr/bin/python3'
 
-" Eclim completion to be used by YCM
-let g:EclimCompletionMethod='omnifunc'
+" Eclim completion to be used by YCM.
+let g:EclimCompletionMethod = 'omnifunc'
 
 " Disable Eclim automatic validation.
-let g:EclimFileTypeValidate=0
+let g:EclimFileTypeValidate = 0
 
 " Syntastic settings.
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map={'mode':'active',
-                         \'active_filetypes':[],
-												 \'passive_filetypes': ['html']}
+let g:syntastic_mode_map = {'mode':'active',
+      \'active_filetypes':[],
+      \'passive_filetypes': ['html']}
 
 " Setting up Merlin for OCaml
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 " Syntastic checkers.
-let g:syntastic_c_checkers=['clang_check','clang_tidy']
-let g:syntastic_java_checkers=['javac']
-let g:syntastic_sh_checkers=['shellcheck']
-let g:syntastic_python_checkers=['python']
-let g:syntastic_asm_checkers=[]
-let g:syntastic_ocaml_checkers=['merlin']
-let g:syntastic_html_checkers=['w3']
-let g:syntastic_php_checkers=['php']
+let g:syntastic_c_checkers = ['clang_check','clang_tidy']
+let g:syntastic_java_checkers = ['javac']
+let g:syntastic_sh_checkers = ['shellcheck']
+let g:syntastic_python_checkers = ['python']
+let g:syntastic_asm_checkers = []
+let g:syntastic_ocaml_checkers = ['merlin']
+let g:syntastic_html_checkers = ['w3']
+let g:syntastic_php_checkers = ['php']
 
 "}}}
