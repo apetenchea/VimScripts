@@ -39,8 +39,8 @@ In order to load .lvimrc files automatically, without asking, add to .vimrc:
 " Don't ask before loading a .lvimrc file
 g:localvimrc_ask = 0
 ```
-
-Next, make sure that the variable `s:eclimd_path` points to *eclimd*, which can be found where Eclim was installed.<br>
+NOTE: mainly, if there are multiple users on the same machine, make sure first that it is safe to disable sanbox mode!<br>
+Next, check that the variable `s:eclimd_path` points to *eclimd*, which can be found where Eclim was installed.<br>
 Then simply put this script inside a file named *.lvimrc*, in your eclipse workspace.
 To check the default eclipse workspace<br>
 1. Go to $HOME/eclipse/configuration
