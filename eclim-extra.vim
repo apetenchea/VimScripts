@@ -1,7 +1,6 @@
-" Some useful features for editing Java code, added on top of Eclim
-" (http://eclim.org/). In order to use this you should have Eclim installed.
-" It is also supposed to work on Linux, but it could be easily adapted for
-" Windows.
+" Some useful features added on top of Eclim (http://eclim.org/).
+" In order to use this you should have Eclim installed.
+" This was written to work on Linux, but it can be easily adapted to Windows.
 "
 " Maintainer: Alexandru Petenchea
 "
@@ -14,12 +13,9 @@
 "
 " If you have localvimrc installed, and you don't want Eclim to start when
 " this script is loaded, just start Vim like this:
-" vim --cmd 'let g:noeclim = 1' 
+" vim --cmd 'let g:noeclim=1' 
 "
-" To check the default eclipse workspace:
-" 	Go to $HOME/ecplipse/configuration
-" 	In the file config.ini you should see a line:
-" 		osgi.instance.area.default=your_default_workspace
+" To manually start eclim, use the command :StartEclim
 
 " Section: Settings {{{1
 
@@ -109,6 +105,12 @@ augroup do_cleanup
   autocmd!
   autocmd VimLeave * :call <SID>DoCleanup()
 augroup END
+
+" Section: Command declarations {{{1
+
+if !exists(':StartEclim')
+  command StartEclim :call <SID>StartEclim()
+endif
 
 " Section: Start Eclim {{{1
 
