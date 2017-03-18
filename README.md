@@ -1,5 +1,6 @@
 # VimScripts
-Some vim scripts that make my life easier.
+Some vim scripts that make my life easier.<br>
+The code aims to follow the [Google Vimscript Style Guide](https://google.github.io/styleguide/vimscriptguide.xml).
 <hr>
 
 ## [vimrc](vimrc)
