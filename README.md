@@ -6,19 +6,22 @@ The code aims to follow the [Google Vimscript Style Guide](https://google.github
 ## [vimrc](vimrc)
 My .vimrc file.<br>
 I have the following installed:
-1. [eclim](https://github.com/ervandew/eclim)
-2. [pathogen](https://github.com/tpope/vim-pathogen)
+
+1. [pathogen](https://github.com/tpope/vim-pathogen)
+2. [vim-fugitive](https://github.com/tpope/vim-fugitive)
 3. [nerdtree](https://github.com/scrooloose/nerdtree)
-4. [syntastic](https://github.com/vim-syntastic/syntastic)
-5. [vim-fugitive](https://github.com/tpope/vim-fugitive)
+4. [vim-localvimrc](https://github.com/embear/vim-localvimrc)
+5. [syntastic](https://github.com/vim-syntastic/syntastic)
 6. [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
-7. [vim-localvimrc](https://github.com/embear/vim-localvimrc)
+7. [omlet](https://github.com/vim-scripts/omlet.vim)
 8. [merlin](https://github.com/ocaml/merlin)
+9. [eclim](https://github.com/ervandew/eclim)
 <hr>
 
 ## [eclim-extra](eclim-extra)
-This is a script meant to add some features on top of [eclim](https://github.com/ervandew/eclim).<br>
-The best way to use it is alongside [vim-localvimrc](https://github.com/embear/vim-localvimrc) in order to autoamtically run the Eclim
+This is a script meant to add some features on top of [eclim](https://github.com/ervandew/eclim). Regarding eclim and [checkstyle](checkstyle.sourceforge.net), I ran into some problems, which I
+fixed by following [this](https://www.chromium.org/developers/checkstyle) advice. <br>
+The best way to use eclim-extra is alongside [vim-localvimrc](https://github.com/embear/vim-localvimrc) in order to autoamtically run the Eclim
 server in background, in case vim is started inside the eclipse workspace. Lack of a command which could start eclim was annoying.
 The *:StartEclim* command from this script does exactly just that! It first checks if the eclim server is already running, and if not,
 it starts it in background. The server is also stopped automatically when the Vim instance which started it is being closed.<br>
