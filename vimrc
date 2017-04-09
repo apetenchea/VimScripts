@@ -157,8 +157,8 @@ let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimFileTypeValidate = 0
 
 " Syntastic settings.
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = {'mode':'active',
@@ -171,6 +171,8 @@ execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 " Syntastic checkers.
 let g:syntastic_c_checkers = ['clang_check','clang_tidy']
+let g:syntastic_cpp_checker = ['clang_check','clang_tidy']
+let g:syntastic_cpp_compiler_options = '-std=c++11'
 let g:syntastic_java_checkers = ['javac']
 let g:syntastic_sh_checkers = ['shellcheck']
 let g:syntastic_python_checkers = ['python']
