@@ -19,15 +19,15 @@ My .vimrc file.
 <hr>
 
 ## [eclim-extra](eclim-extra)
-This script adds some features on top of the [eclim](https://github.com/ervandew/eclim) plugin. 
+This script adds some features on top of the [Eclim](https://github.com/ervandew/eclim) plugin. 
 The lack of a command which could start Eclim from within Vim was annoying.
-The `:StartEclim` command in this script does exactly just that!<br>
-How it works:<br>
+The `StartEclim` command in this script does exactly just that!<br>
+*How it works*<br>
 It first checks if the eclim server is already running. If not, it starts it in background. When the Vim instance which started the server is closed, the server is also stopped automatically.<br>
-Also, this script adds some nice features that go along with Eclim, such as Javadoc comment folding and some useful mappings.<br>
+Also, this script adds some nice features that go along with Eclim, such as Javadoc comment folding and useful mappings.<br>
 
 **Configuration**<br>
-Details about eclim can be found [here](http://eclim.org/).<br>
+Details about Eclim can be found [here](http://eclim.org/).<br>
 *Set `s:eclimd_path` to the path of your Eclim server*<br>
 The variable `s:eclimd_path` should contain the path to *eclimd*, which can be found in the folder in which Eclim was installed.<br>
 *Using vim-localvimrc*
@@ -43,30 +43,30 @@ In order to load .lvimrc files automatically, without asking, add this to your .
 g:localvimrc_ask = 0
 ```
 NOTE: if there are multiple users on the same machine, first make sure that it is safe to disable sanbox mode!<br>
-Now simply put the contents of the eclim-extra script inside a file named *.lvimrc*, inside your eclipse workspace.<br>
-
-**Usage**<br>
-To start Eclim from inside Vim use:
-```Vim script
-:StartEclim
-```
-If you don't want the Eclim server to be started automatically, you can start Vim like this:
+Then, simply put the contents of the eclim-extra script inside a file named *.lvimrc*, created in your eclipse workspace.<br>
+Now, the Eclim server will start automatically with Vim, inside the Eclipse workspace.<br>
+When you don't want the Eclim server to be started automatically, you can start Vim like this:
 ```Bash
 vim --cmd 'let g:noeclim=1' 
 ```
+
+**Usage**<br>
+To start the Eclim server from whithin Vim use:
+```Vim script
+:StartEclim
+```
+
 **Mappings**<br>
-1. CTRL+b -> build project + display quickfix window, or hide the quickfix window in case it is already open.
-<hr>
+1. *CTRL+b* -> build project + toggle quickfix window.
 
 **Tips**<br>
 1. Regarding eclim and [checkstyle](checkstyle.sourceforge.net), I ran into some problems, which I fixed by following [this](https://www.chromium.org/developers/checkstyle) advice.<br>
 2. How to check your default Eclipse workspace:
-  To check the default eclipse workspace<br>
     1. Go to $HOME/eclipse/configuration
     2. In the *config.ini* file you should see a line:
     ```
       osgi.instance.area.default=your_default_workspace
     ```
 
-**About the code**
+**About the code**<br>
 The code aims to follow the [Google Vimscript Style Guide](https://google.github.io/styleguide/vimscriptguide.xml).
