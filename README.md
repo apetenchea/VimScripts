@@ -17,6 +17,7 @@ Besides, I have the following plugins installed:
 ## [vimrc](vimrc)
 My .vimrc file.
 <hr>
+
 ## [eclim-extra](eclim-extra)
 This script adds some features on top of the [eclim](https://github.com/ervandew/eclim) plugin. 
 The lack of a command which could start Eclim from within Vim was annoying.
