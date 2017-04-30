@@ -31,7 +31,7 @@ Details about Eclim can be found [here](http://eclim.org/).<br>
 *Set `s:eclimd_path` to the path of your Eclim server*<br>
 The variable `s:eclimd_path` should contain the path to *eclimd*, which can be found in the folder where Eclim was installed.<br>
 *Using vim-localvimrc*<br>
-The best way to use eclim-extra is alongside [vim-localvimrc](https://github.com/embear/vim-localvimrc). This will enable you to to automatically run the Eclim server in background, whenever Vim is started inside your Eclipse workspace. If not, you can manually start it by using the `StartEclim` command.<br>
+The best way to use eclim-extra is alongside [vim-localvimrc](https://github.com/embear/vim-localvimrc). This will enable you to automatically run the Eclim server in background, whenever Vim is started inside your Eclipse workspace. If not, you can manually start it by using the `StartEclim` command.<br>
 After you've installed vim-localvimrc, you should disable sandbox mode. Add this to your .vimrc:
 ```Vim script
 " Disable sandbox mode for localvimrc.
