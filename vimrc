@@ -102,6 +102,9 @@ nnoremap <DOWN> <C-E>
 nnoremap <LEFT> <C-w>h
 nnoremap <RIGHT> <C-w>l
 
+" SyntasticCheck
+nnoremap <C-c> :SyntasticCheck<ENTER>
+
 "}}}
 
 " Appearence {{{
@@ -157,9 +160,9 @@ let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimFileTypeValidate = 0
 
 " Syntastic settings.
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = {'mode':'active',
       \'active_filetypes':[],
