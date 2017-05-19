@@ -9,9 +9,8 @@ Besides, I have the following plugins installed:
 4. [vim-localvimrc](https://github.com/embear/vim-localvimrc)
 5. [syntastic](https://github.com/vim-syntastic/syntastic)
 6. [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
-7. [omlet](https://github.com/vim-scripts/omlet.vim)
-8. [merlin](https://github.com/ocaml/merlin)
-9. [eclim](https://github.com/ervandew/eclim)
+7. [merlin](https://github.com/ocaml/merlin)
+8. [eclim](https://github.com/ervandew/eclim)
 <hr>
 
 ## [vimrc](vimrc)
