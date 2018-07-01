@@ -4,13 +4,11 @@ Some vim scripts that make my life easier.<br>
 Besides, I have the following plugins installed:
 
 1. [pathogen](https://github.com/tpope/vim-pathogen)
-2. [vim-fugitive](https://github.com/tpope/vim-fugitive)
-3. [nerdtree](https://github.com/scrooloose/nerdtree)
-4. [vim-localvimrc](https://github.com/embear/vim-localvimrc)
-5. [syntastic](https://github.com/vim-syntastic/syntastic)
-6. [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
-7. [merlin](https://github.com/ocaml/merlin)
-8. [eclim](https://github.com/ervandew/eclim)
+2. [nerdtree](https://github.com/scrooloose/nerdtree)
+3. [vim-localvimrc](https://github.com/embear/vim-localvimrc)
+4. [syntastic](https://github.com/vim-syntastic/syntastic)
+5. [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
+6. [rust.vim](https://github.com/rust-lang/rust.vim)
 <hr>
 
 ## [vimrc](vimrc)
