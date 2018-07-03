@@ -165,7 +165,7 @@ let g:syntastic_check_on_open = 0
 " Syntastic checkers.
 let g:syntastic_python_checkers = ['python']
 let g:syntastic_sh_checkers = ['shellcheck']
-let g:syntastic_rust_checkers = ['rustc']
+let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_c_checkers = ['clang_check']
 let g:syntastic_c_compiler_options = '-std=c11'
 let g:syntastic_cpp_checkers = ['clang_check']
