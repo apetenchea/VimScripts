@@ -170,6 +170,7 @@ let g:syntastic_c_checkers = ['clang_check']
 let g:syntastic_c_compiler_options = '-std=c11'
 let g:syntastic_cpp_checkers = ['clang_check']
 let g:syntastic_cpp_compiler_options = '-std=c++11'
+let g:syntastic_asm_checkers = []
 
 let g:syntastic_mode_map = {
   \ 'mode': 'passive',
