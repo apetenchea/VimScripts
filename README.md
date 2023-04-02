@@ -16,7 +16,7 @@ My .vimrc file. Nowadays it's actually much more minimalist, but my nostalgia ma
 <hr>
 
 ## [ideavimrc](ideavimrc)
-My .ideavimrc file. I use together with [IdeaVim](https://github.com/JetBrains/ideavim) when coding in JetBrains IDEs.
+My .ideavimrc file. I use it together with [IdeaVim](https://github.com/JetBrains/ideavim) when coding in JetBrains IDEs.
 <hr>
 
 ## [eclim-extra](eclim-extra)
