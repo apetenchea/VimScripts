@@ -12,7 +12,11 @@ Besides, I have the following plugins installed:
 <hr>
 
 ## [vimrc](vimrc)
-My .vimrc file.
+My .vimrc file. Nowadays it's actually much more minimalist, but my nostalgia makes me keep this one up here.
+<hr>
+
+## [ideavimrc](ideavimrc)
+My .ideavimrc file. I use together with [IdeaVim](https://github.com/JetBrains/ideavim) when coding in JetBrains IDEs.
 <hr>
 
 ## [eclim-extra](eclim-extra)
