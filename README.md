@@ -1,7 +1,17 @@
 # VimScripts
 Some vim scripts that make my life easier.<br>
+<hr>
 
-Besides, I have the following plugins installed:
+# Current setup
+Quite minimalist, with only a few key mappings. See my current [vimrc](vimrc)
+
+Using the following plugins:
+1. [pathogen](https://github.com/tpope/vim-pathogen)
+2. [nerdtree](https://github.com/scrooloose/nerdtree)
+
+# Old setup
+I'm keeping the old setup here for fun.  
+I used to have the following plugins installed:
 
 1. [pathogen](https://github.com/tpope/vim-pathogen)
 2. [nerdtree](https://github.com/scrooloose/nerdtree)
@@ -11,7 +21,7 @@ Besides, I have the following plugins installed:
 6. [rust.vim](https://github.com/rust-lang/rust.vim)
 <hr>
 
-## [vimrc](vimrc)
+## [vimrc](vimrc_old)
 My .vimrc file. Nowadays it's actually much more minimalist, but my nostalgia makes me keep this one up here.
 <hr>
 

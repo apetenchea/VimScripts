@@ -76,10 +76,27 @@ let maplocalleader = '\'
 
 " }}}
 
+" Functions {{{
+
+" Use YcmCompleter GoTo if it is supported, otherwise fall back to built-in gd.
+function! s:GoTo()
+  let l:ycm_support = ['c', 'cpp', 'rust', 'python']
+  if index(l:ycm_support, &filetype) == -1
+    normal! gd
+  else
+    silent execute 'YcmCompleter GoTo'
+  endif
+endfunction
+
+" }}}
+
 " Mappings {{{
 
 " Exit insert mode.
 inoremap jk <ESC>
+
+" Open brackets.
+inoremap kk <C-G>u{<CR>}<ESC>O
 
 " Scrolling.
 nnoremap <UP> <C-Y>
@@ -88,6 +105,15 @@ nnoremap <DOWN> <C-E>
 " Move through splits.
 nnoremap <LEFT> <C-w>h
 nnoremap <RIGHT> <C-w>l
+
+" Sensible go to from YCM.
+nnoremap <silent> <Space> :call <SID>GoTo()<CR>
+
+" Check for errors.
+nnoremap <silent> <CR> :SyntasticCheck<CR>
+
+" Clear errors.
+nnoremap <silent> <BS> :SyntasticReset<CR>
 
 " }}}
 
@@ -127,5 +153,40 @@ execute pathogen#infect()
 
 " Shortcut for NERDTree.
 nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Don't ask before loading a .lvimrc file.
+let g:localvimrc_ask = 0
+
+" Syntastic settings.
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+
+" Syntastic checkers.
+let g:syntastic_python_checkers = ['python']
+let g:syntastic_sh_checkers = ['shellcheck']
+let g:syntastic_rust_checkers = ['cargo']
+let g:syntastic_c_checkers = ['clang_check']
+let g:syntastic_c_compiler_options = '-std=c11'
+let g:syntastic_cpp_checkers = ['clang_check']
+let g:syntastic_cpp_compiler_options = '-std=c++11'
+let g:syntastic_asm_checkers = []
+
+let g:syntastic_mode_map = {
+  \ 'mode': 'passive',
+  \ 'active_filetypes': ['python'],
+  \ 'passive_filetypes': []}
+
+" YCM python used to run jedi.
+let g:ycm_python_binary_path = 'python'
+
+" Do not use YCM syntax checking, rely on syntastic instead.
+let g:ycm_show_diagnostics_ui = 0
+
+" YCM completion options for C-family.
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+
+" YCM autocompletion pops up only on <C-Space>.
+let g:ycm_auto_trigger = 0
 
 " }}}
