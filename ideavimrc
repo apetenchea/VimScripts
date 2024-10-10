@@ -4,3 +4,6 @@ inoremap jk <esc>
 " Paste in visual mode without overwriting the default register. "_d deletes
 " the selected text into the black hole register.
 vnoremap pp "_dP
+
+set clipboard=ideaput
+
