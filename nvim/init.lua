@@ -143,6 +143,7 @@ require("nvim-tree").setup({
 })
 require("which-key").setup({
   delay = 400,
+  icons = { mappings = false },
 })
 
 -- Example: export NVIM_SESSION_DIRS="$HOME/project-one:$HOME/project-two"
@@ -166,19 +167,17 @@ vim.cmd.colorscheme("catppuccin-mocha")
 vim.env.BAT_THEME = "Catppuccin Mocha"
 
 local map = vim.keymap.set
-map("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
+map("n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", { desc = "tree" })
 vim.api.nvim_create_user_command("BC", function(opts)
   require("beyond_compare").open(opts.args)
 end, { nargs = "?", desc = "Beyond Compare: current file versus index or Git revision" })
 vim.cmd([[cnoreabbrev <expr> bc getcmdtype() == ':' && getcmdline() ==# 'bc' ? 'BC' : 'bc']])
 
 map("i", "jk", "<Esc>")
-map("n", "<Up>", "<C-y>")
-map("n", "<Down>", "<C-e>")
 map("n", "<Left>", "<C-w>h")
 map("n", "<Right>", "<C-w>l")
-map("n", "<leader>f", "<Cmd>GFiles<CR>", { desc = "Find tracked file" })
-map("n", "<leader>s", "<Cmd>Rg<CR>", { desc = "Search source text" })
-map("n", "<leader>b", "<Cmd>Buffers<CR>", { desc = "Find open buffer" })
-map("n", "<leader>g", "<Cmd>Gitsigns blame<CR>", { desc = "Git blame" })
-map("n", "<leader>d", "<Cmd>Gdiffsplit<CR>", { desc = "Diff current file" })
+map("n", "<leader>f", "<Cmd>GFiles<CR>", { desc = "file" })
+map("n", "<leader>s", "<Cmd>Rg<CR>", { desc = "search" })
+map("n", "<leader>o", "<Cmd>Buffers<CR>", { desc = "open buffer" })
+map("n", "<leader>b", "<Cmd>Gitsigns blame<CR>", { desc = "blame" })
+map("n", "<leader>d", "<Cmd>Gdiffsplit<CR>", { desc = "diff" })
