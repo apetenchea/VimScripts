@@ -1,4 +1,6 @@
 vim.g.mapleader = " "
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 local opt = vim.opt
 opt.number = true
@@ -39,6 +41,7 @@ vim.pack.add({
   "https://github.com/folke/which-key.nvim",
   "https://github.com/rmagatti/auto-session",
   "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/nvim-tree/nvim-tree.lua",
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -134,6 +137,10 @@ vim.lsp.config("pyright", {
 vim.lsp.enable("pyright", #pyright_projects > 0)
 
 require("gitsigns").setup()
+require("nvim-tree").setup({
+  update_focused_file = { enable = true },
+  filesystem_watchers = { enable = false },
+})
 require("which-key").setup({
   delay = 400,
 })
@@ -159,6 +166,7 @@ vim.cmd.colorscheme("catppuccin-mocha")
 vim.env.BAT_THEME = "Catppuccin Mocha"
 
 local map = vim.keymap.set
+map("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 vim.api.nvim_create_user_command("BC", function(opts)
   require("beyond_compare").open(opts.args)
 end, { nargs = "?", desc = "Beyond Compare: current file versus index or Git revision" })
