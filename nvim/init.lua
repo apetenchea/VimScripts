@@ -42,6 +42,7 @@ vim.pack.add({
   "https://github.com/rmagatti/auto-session",
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/nvim-tree/nvim-tree.lua",
+  "https://github.com/nvim-tree/nvim-web-devicons",
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -176,8 +177,22 @@ vim.cmd([[cnoreabbrev <expr> bc getcmdtype() == ':' && getcmdline() ==# 'bc' ? '
 map("i", "jk", "<Esc>")
 map("n", "<Left>", "<C-w>h")
 map("n", "<Right>", "<C-w>l")
-map("n", "<leader>f", "<Cmd>GFiles<CR>", { desc = "file" })
-map("n", "<leader>s", "<Cmd>Rg<CR>", { desc = "search" })
-map("n", "<leader>o", "<Cmd>Buffers<CR>", { desc = "open buffer" })
-map("n", "<leader>b", "<Cmd>Gitsigns blame<CR>", { desc = "blame" })
-map("n", "<leader>d", "<Cmd>Gdiffsplit<CR>", { desc = "diff" })
+map("n", "<leader>f", "<Cmd>GFiles<CR>", { desc = "File" })
+map("n", "<leader>s", "<Cmd>Rg<CR>", { desc = "Search" })
+map("n", "<leader>o", "<Cmd>Buffers<CR>", { desc = "Open buffer" })
+map("n", "<leader>b", "<Cmd>Gitsigns blame<CR>", { desc = "Blame" })
+map("n", "<leader>d", "<Cmd>Gvdiffsplit<CR>", { desc = "Diff" })
+map("n", "]c", function()
+  if vim.wo.diff then
+    vim.cmd.normal({ "]c", bang = true })
+  else
+    require("gitsigns").nav_hunk("next")
+  end
+end, { desc = "Next change" })
+map("n", "[c", function()
+  if vim.wo.diff then
+    vim.cmd.normal({ "[c", bang = true })
+  else
+    require("gitsigns").nav_hunk("prev")
+  end
+end, { desc = "Previous change" })
