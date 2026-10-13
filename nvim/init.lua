@@ -80,7 +80,7 @@ for _, dir in ipairs(vim.split(vim.env.NVIM_CLANGD_PROJECTS or "", ":", {
 end
 
 vim.lsp.config("clangd", {
-  cmd = { "clangd", "--background-index", "-j=8" },
+  cmd = { "clangd", "--background-index" },
   root_dir = function(bufnr, on_dir)
     local file = vim.uv.fs_realpath(vim.api.nvim_buf_get_name(bufnr))
     if not file then
