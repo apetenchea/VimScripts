@@ -1,0 +1,20 @@
+font-family = Andale Mono
+font-size = 18
+background = #000000
+foreground = #bbbbbb
+cursor-color = #ffa560
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+selection-background = #363983
+selection-foreground = #f2f2f2
+macos-option-as-alt = false
+
+window-padding-x = 8
+window-padding-y = 6
+mouse-hide-while-typing = true
+window-save-state = always
+
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+quick-terminal-position = top
+quick-terminal-size = 40%
