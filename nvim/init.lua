@@ -10,6 +10,8 @@ opt.expandtab = true
 opt.foldmethod = "marker"
 opt.signcolumn = "yes"
 opt.sessionoptions:remove("blank")
+opt.sessionoptions:remove("options")
+opt.sessionoptions:append("localoptions")
 
 vim.cmd([[
   augroup RestoreCursor
@@ -34,11 +36,29 @@ vim.pack.add({
   "https://github.com/tpope/vim-fugitive",
   "https://github.com/lewis6991/gitsigns.nvim",
   "https://github.com/folke/which-key.nvim",
+  "https://github.com/rmagatti/auto-session",
 })
 
 require("gitsigns").setup()
 require("which-key").setup({
   delay = 400,
+})
+
+-- Example: export NVIM_SESSION_DIRS="$HOME/project-one:$HOME/project-two"
+local session_dirs = {}
+for _, dir in ipairs(vim.split(vim.env.NVIM_SESSION_DIRS or "", ":", {
+  plain = true,
+  trimempty = true,
+})) do
+  dir = vim.trim(dir)
+  if dir ~= "" then
+    table.insert(session_dirs, dir)
+  end
+end
+
+require("auto-session").setup({
+  enabled = #session_dirs > 0,
+  allowed_dirs = session_dirs,
 })
 
 vim.cmd.colorscheme("catppuccin-mocha")
