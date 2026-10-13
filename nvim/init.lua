@@ -33,9 +33,13 @@ vim.pack.add({
   "https://github.com/junegunn/fzf.vim",
   "https://github.com/tpope/vim-fugitive",
   "https://github.com/lewis6991/gitsigns.nvim",
+  "https://github.com/folke/which-key.nvim",
 })
 
 require("gitsigns").setup()
+require("which-key").setup({
+  delay = 400,
+})
 
 vim.cmd.colorscheme("catppuccin-mocha")
 
