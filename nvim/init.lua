@@ -96,6 +96,43 @@ vim.lsp.config("clangd", {
 })
 vim.lsp.enable("clangd")
 
+-- Example: export NVIM_PYRIGHT_PROJECTS="$HOME/project-one:$HOME/project-two"
+local pyright_projects = {}
+for _, dir in ipairs(vim.split(vim.env.NVIM_PYRIGHT_PROJECTS or "", ":", {
+  plain = true,
+  trimempty = true,
+})) do
+  dir = vim.trim(dir)
+  if dir ~= "" then
+    local path = vim.fn.fnamemodify(vim.fn.expand(dir), ":p")
+    local realpath = vim.uv.fs_realpath(path)
+    if realpath and vim.fn.isdirectory(realpath) == 1 then
+      table.insert(pyright_projects, vim.fs.normalize(realpath))
+    end
+  end
+end
+table.sort(pyright_projects, function(a, b)
+  return #a > #b
+end)
+
+vim.lsp.config("pyright", {
+  root_dir = function(bufnr, on_dir)
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    if name == "" then
+      return
+    end
+    local file = vim.fs.normalize(vim.uv.fs_realpath(name) or name)
+    for _, root in ipairs(pyright_projects) do
+      local prefix = root == "/" and root or root .. "/"
+      if file:sub(1, #prefix) == prefix then
+        on_dir(root)
+        return
+      end
+    end
+  end,
+})
+vim.lsp.enable("pyright", #pyright_projects > 0)
+
 require("gitsigns").setup()
 require("which-key").setup({
   delay = 400,
