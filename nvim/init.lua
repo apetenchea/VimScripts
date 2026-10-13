@@ -10,6 +10,7 @@ opt.expandtab = true
 opt.foldmethod = "marker"
 opt.signcolumn = "yes"
 opt.sessionoptions:remove("blank")
+opt.sessionoptions:remove("buffers")
 opt.sessionoptions:remove("options")
 opt.sessionoptions:append("localoptions")
 
@@ -37,7 +38,63 @@ vim.pack.add({
   "https://github.com/lewis6991/gitsigns.nvim",
   "https://github.com/folke/which-key.nvim",
   "https://github.com/rmagatti/auto-session",
+  "https://github.com/neovim/nvim-lspconfig",
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("CodeNavigation", { clear = true }),
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if not client then
+      return
+    end
+
+    local function bind(key, method, action, desc)
+      if client:supports_method(method, ev.buf) then
+        vim.keymap.set("n", key, action, { buffer = ev.buf, desc = desc })
+      end
+    end
+
+    bind("<leader>u", "textDocument/references", function()
+      vim.lsp.buf.references({ includeDeclaration = false })
+    end, "Find usages")
+    bind("gd", "textDocument/definition", vim.lsp.buf.definition, "Go to definition")
+    bind("gD", "textDocument/declaration", vim.lsp.buf.declaration, "Go to declaration")
+  end,
+})
+
+-- Example: export NVIM_CLANGD_PROJECTS="$HOME/project-one:$HOME/project-two"
+local clangd_projects = {}
+for _, dir in ipairs(vim.split(vim.env.NVIM_CLANGD_PROJECTS or "", ":", {
+  plain = true,
+  trimempty = true,
+})) do
+  dir = vim.trim(dir)
+  if dir ~= "" then
+    local path = vim.fn.fnamemodify(vim.fn.expand(dir), ":p")
+    local realpath = vim.uv.fs_realpath(path)
+    if realpath then
+      clangd_projects[vim.fs.normalize(realpath)] = true
+    end
+  end
+end
+
+vim.lsp.config("clangd", {
+  cmd = { "clangd", "--background-index", "-j=8" },
+  root_dir = function(bufnr, on_dir)
+    local file = vim.uv.fs_realpath(vim.api.nvim_buf_get_name(bufnr))
+    if not file then
+      return
+    end
+    local root = vim.fs.root(file, "compile_commands.json")
+    if root and clangd_projects[vim.fs.normalize(root)]
+      and vim.fn.filereadable(root .. "/compile_commands.json") == 1
+    then
+      on_dir(root)
+    end
+  end,
+})
+vim.lsp.enable("clangd")
 
 require("gitsigns").setup()
 require("which-key").setup({

@@ -20,6 +20,10 @@
       "rev": "aa6cc2d7addb288cfd79a05ac257695d5ff61deb",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "nvim-lspconfig": {
+      "rev": "6d27c288ff951e1e94cb5f91c800adeddf0dc0c2",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
     "vim-fugitive": {
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "https://github.com/tpope/vim-fugitive"
