@@ -81,3 +81,7 @@ To start the Eclim server from whithin Vim use:
 
 **About the code**<br>
 The code aims to follow the [Google Vimscript Style Guide](https://google.github.io/styleguide/vimscriptguide.xml).
+
+# neovim
+
+See nvim folder.

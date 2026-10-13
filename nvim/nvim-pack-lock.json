@@ -1,0 +1,24 @@
+{
+  "plugins": {
+    "catppuccin": {
+      "rev": "edefef779ab08ce1a4a404713e3012b0d202bd35",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "fzf": {
+      "rev": "c0a193e031f01fb50bf6f7be4381990a3753f7cf",
+      "src": "https://github.com/junegunn/fzf"
+    },
+    "fzf.vim": {
+      "rev": "023de3c0e158ff9c2b0992175af10be97c2f2158",
+      "src": "https://github.com/junegunn/fzf.vim"
+    },
+    "gitsigns.nvim": {
+      "rev": "aa6cc2d7addb288cfd79a05ac257695d5ff61deb",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "vim-fugitive": {
+      "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
+      "src": "https://github.com/tpope/vim-fugitive"
+    }
+  }
+}
