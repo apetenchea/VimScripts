@@ -159,6 +159,11 @@ vim.cmd.colorscheme("catppuccin-mocha")
 vim.env.BAT_THEME = "Catppuccin Mocha"
 
 local map = vim.keymap.set
+vim.api.nvim_create_user_command("BC", function(opts)
+  require("beyond_compare").open(opts.args)
+end, { nargs = "?", desc = "Beyond Compare: current file versus index or Git revision" })
+vim.cmd([[cnoreabbrev <expr> bc getcmdtype() == ':' && getcmdline() ==# 'bc' ? 'BC' : 'bc']])
+
 map("i", "jk", "<Esc>")
 map("n", "<Up>", "<C-y>")
 map("n", "<Down>", "<C-e>")
