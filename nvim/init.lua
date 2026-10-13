@@ -42,6 +42,7 @@ require("which-key").setup({
 })
 
 vim.cmd.colorscheme("catppuccin-mocha")
+vim.env.BAT_THEME = "Catppuccin Mocha"
 
 local map = vim.keymap.set
 map("i", "jk", "<Esc>")
@@ -52,5 +53,5 @@ map("n", "<Right>", "<C-w>l")
 map("n", "<leader>f", "<Cmd>GFiles<CR>", { desc = "Find tracked file" })
 map("n", "<leader>s", "<Cmd>Rg<CR>", { desc = "Search source text" })
 map("n", "<leader>b", "<Cmd>Buffers<CR>", { desc = "Find open buffer" })
-map("n", "<leader>g", "<Cmd>Git<CR>", { desc = "Git status" })
+map("n", "<leader>g", "<Cmd>Gitsigns blame<CR>", { desc = "Git blame" })
 map("n", "<leader>d", "<Cmd>Gdiffsplit<CR>", { desc = "Diff current file" })
