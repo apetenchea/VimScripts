@@ -167,6 +167,9 @@ require("auto-session").setup({
 vim.cmd.colorscheme("catppuccin-mocha")
 vim.env.BAT_THEME = "Catppuccin Mocha"
 
+-- Follow symlinked repositories and retain .gitignore rules.
+vim.env.FZF_DEFAULT_COMMAND = "rg --files --hidden --follow --no-ignore-exclude -g '!.git'"
+
 local map = vim.keymap.set
 map("n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", { desc = "tree" })
 vim.api.nvim_create_user_command("BC", function(opts)
@@ -177,7 +180,7 @@ vim.cmd([[cnoreabbrev <expr> bc getcmdtype() == ':' && getcmdline() ==# 'bc' ? '
 map("i", "jk", "<Esc>")
 map("n", "<Left>", "<C-w>h")
 map("n", "<Right>", "<C-w>l")
-map("n", "<leader>f", "<Cmd>GFiles<CR>", { desc = "File" })
+map("n", "<leader>f", "<Cmd>Files<CR>", { desc = "File" })
 map("n", "<leader>s", "<Cmd>Rg<CR>", { desc = "Search" })
 map("n", "<leader>o", "<Cmd>Buffers<CR>", { desc = "Open buffer" })
 map("n", "<leader>b", "<Cmd>Gitsigns blame<CR>", { desc = "Blame" })
