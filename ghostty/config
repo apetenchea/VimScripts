@@ -1,14 +1,10 @@
 font-family = Andale Mono
 font-size = 18
-background = #000000
-foreground = #bbbbbb
-cursor-color = #ffa560
+theme = Catppuccin Mocha
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
-selection-background = #363983
-selection-foreground = #f2f2f2
-macos-option-as-alt = false
+macos-option-as-alt = left
 
 window-padding-x = 8
 window-padding-y = 6
