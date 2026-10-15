@@ -145,7 +145,6 @@ vim.lsp.enable("pyright", #pyright_projects > 0)
 require("gitsigns").setup()
 require("nvim-tree").setup({
   update_focused_file = { enable = true },
-  filesystem_watchers = { enable = false },
   git = { enable = true, timeout = 5000 },
 })
 require("which-key").setup({
