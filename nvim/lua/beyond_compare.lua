@@ -17,52 +17,48 @@ function M.open(ref)
     return fail("Beyond Compare: bcomp is missing from PATH")
   end
 
-  local function git(args, cwd)
+  local function git(args, cwd, on_success, timeout)
     local cmd = { "git" }
     vim.list_extend(cmd, args)
-    local result = vim.system(cmd, { cwd = cwd }):wait(5000)
-    if result.code ~= 0 then
-      fail("Beyond Compare: " .. vim.trim(result.stderr or "Git command failed"))
-      return
-    end
-    return result.stdout
-  end
-
-  local root = git({ "rev-parse", "--show-toplevel" }, vim.fs.dirname(file))
-  if not root then
-    return
-  end
-  root = vim.trim(root)
-  local path = vim.fs.relpath(root, file)
-  if not path then
-    return fail("Beyond Compare: file is outside the Git working tree")
-  end
-  local revision = ""
-  if ref ~= "" then
-    local commit = git({ "rev-parse", "--verify", "--end-of-options", ref .. "^{commit}" }, root)
-    if not commit then
-      return
-    end
-    revision = vim.trim(commit)
-  end
-  local cmd = { "git", "--literal-pathspecs", "difftool", "--no-prompt", "--tool=bc" }
-  if revision ~= "" then
-    table.insert(cmd, revision)
-  end
-  vim.list_extend(cmd, { "--", path })
-
-  -- Git manages temporary files; run asynchronously while Beyond Compare is open.
-  local launched, launch_err = pcall(vim.system, cmd, { cwd = root }, function(result)
-    vim.schedule(function()
+    local launched, launch_err = pcall(vim.system, cmd, { cwd = cwd, timeout = timeout }, vim.schedule_wrap(function(result)
       if result.code ~= 0 then
         local message = vim.trim(result.stderr or "")
-        fail("Beyond Compare: " .. (message ~= "" and message or "git difftool failed"))
+        if message == "" then
+          message = result.code == 124 and "Git command timed out" or "Git command failed"
+        end
+        fail("Beyond Compare: " .. message)
+      elseif on_success then
+        on_success(result.stdout)
       end
-    end)
-  end)
-  if not launched then
-    fail("Beyond Compare: " .. tostring(launch_err))
+    end))
+    if not launched then
+      fail("Beyond Compare: " .. tostring(launch_err))
+    end
   end
+
+  git({ "rev-parse", "--show-toplevel" }, vim.fs.dirname(file), function(root)
+    root = vim.trim(root)
+    local path = vim.fs.relpath(root, file)
+    if not path then
+      return fail("Beyond Compare: file is outside the Git working tree")
+    end
+
+    local function compare(revision)
+      local args = { "--literal-pathspecs", "difftool", "--no-prompt", "--tool=bc" }
+      if revision then
+        table.insert(args, vim.trim(revision))
+      end
+      vim.list_extend(args, { "--", path })
+      -- Git manages temporary files; leave the comparison process without a timeout.
+      git(args, root)
+    end
+
+    if ref ~= "" then
+      git({ "rev-parse", "--verify", "--end-of-options", ref .. "^{commit}" }, root, compare, 5000)
+    else
+      compare()
+    end
+  end, 5000)
 end
 
 return M
