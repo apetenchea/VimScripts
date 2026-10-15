@@ -3,7 +3,12 @@ Some vim scripts that make my life easier.<br>
 <hr>
 
 # Current setup
-Quite minimalist, with only a few key mappings. See my current [vimrc](vimrc)
+
+My Neovim configuration is documented [below](#neovim). The Vim setup is retained for reference.
+
+# Vim setup
+
+Quite minimalist, with only a few key mappings. See [vimrc](vimrc).
 
 Using the following plugins:
 1. [pathogen](https://github.com/tpope/vim-pathogen)
@@ -82,6 +87,70 @@ To start the Eclim server from whithin Vim use:
 **About the code**<br>
 The code aims to follow the [Google Vimscript Style Guide](https://google.github.io/styleguide/vimscriptguide.xml).
 
-# neovim
+# Neovim
 
-See nvim folder.
+Configuration lives in [nvim/init.lua](nvim/init.lua), with the Beyond Compare command in [nvim/lua/beyond_compare.lua](nvim/lua/beyond_compare.lua).
+
+## Setup
+
+Tested with Neovim 0.12.6. The configuration uses the built-in `vim.pack` plugin manager and `vim.lsp.config` / `vim.lsp.enable` APIs.
+
+Install these executables on `PATH`:
+
+- `git`, `fzf`, and `rg` (ripgrep) for plugins, Git integration, and search.
+- `bat` for syntax-highlighted previews, with the `Catppuccin Mocha` theme available in `bat --list-themes`.
+- `clangd` for C/C++ projects and `pyright-langserver` for Python projects, if enabled below.
+- Beyond Compare's `bcomp` launcher for `:BC`.
+
+A Nerd Font is useful for the file-tree icons. Language servers and external tools are installed separately from the plugins.
+
+Link this repository's `nvim` directory to your Neovim configuration directory. For the default Unix location, from the repository root, with no existing `~/.config/nvim`:
+
+```sh
+mkdir -p "$HOME/.config"
+ln -s "$PWD/nvim" "$HOME/.config/nvim"
+```
+
+If `XDG_CONFIG_HOME` is set, use `$XDG_CONFIG_HOME/nvim` instead. Start `nvim` and accept the initial plugin installation. Keep [nvim/nvim-pack-lock.json](nvim/nvim-pack-lock.json) under version control; it records the plugin revisions used for a fresh installation. Use `:lua vim.pack.update()` to review and apply plugin updates, then commit the lockfile changes.
+
+## Project configuration
+
+Set these optional variables in the shell that launches Neovim. Each accepts a colon-separated list; empty entries and surrounding whitespace are ignored.
+
+```sh
+export NVIM_CLANGD_PROJECTS="$HOME/src/cpp-project:$HOME/src/another-cpp-project"
+export NVIM_PYRIGHT_PROJECTS="$HOME/src/python-project"
+export NVIM_SESSION_DIRS="$HOME/src/cpp-project:$HOME/src/python-project"
+```
+
+Unset variables disable the corresponding language server or automatic sessions. Restart Neovim after changing them.
+
+- `NVIM_CLANGD_PROJECTS`: exact allowed project roots. The nearest ancestor containing a readable `compile_commands.json` must match an entry after resolving symlinks. A parent directory does not automatically allow nested projects. If the compilation database lives in a build directory, link it into the source root. New files are supported when their parent directory exists.
+- `NVIM_PYRIGHT_PROJECTS`: allowed Python project roots. Files beneath an entry use that directory as the LSP root; the longest matching entry wins. These explicit roots replace automatic project-marker discovery. Nonexistent LSP project paths are silently ignored.
+- `NVIM_SESSION_DIRS`: working directories allowed for automatic session saving and restoration. Auto-session also accepts glob patterns, such as `$HOME/src/**`. Start `nvim` without file arguments from an allowed directory to restore its session. By default, launching with file arguments skips automatic restoration and saving.
+
+Sessions retain window layouts and local options, but exclude blank windows and hidden buffers. Files that are open only in the buffer list will not be restored. The auto-session health warning about missing `buffers` reflects this setting.
+
+## Commands and mappings
+
+The leader key is Space. These mappings use Normal mode unless stated otherwise.
+
+| Key | Action |
+| --- | --- |
+| `<Space>f` | Find files (`:Files`) |
+| `<Space>s` | Search contents as you type (`:RG`) |
+| `<Space>o` | List open buffers |
+| `<Space>t` | Toggle the file tree |
+| `<Space>b` | Show Git blame |
+| `<Space>d` | Open a vertical Git diff |
+| `[c` / `]c` | Previous / next Git hunk, or diff change in diff mode |
+| `gd` / `gD` | Go to definition / declaration, when supported by an attached LSP |
+| `<Space>u` | Find references, excluding declarations, when supported by an attached LSP |
+| Left / Right | Move to the window on the left / right |
+| `jk` in Insert mode | Return to Normal mode; mapping timeout is 300 ms |
+
+`:Files`, `:Rg`, and `:RG` include hidden files and follow symlinks. They respect `.gitignore`, include paths excluded only by `.git/info/exclude`, and skip `.git` metadata. `:Rg pattern` searches once and fuzzy-filters the results; `:RG pattern` reruns the search as you type. Searches start from the current working directory.
+
+`:BC` compares the saved current file against the Git index. `:BC HEAD` (or another commit, branch, or tag) compares it against that revision. Save edits first. The command uses `git difftool --tool=bc` asynchronously; unchanged files produce no comparison window. Lowercase `:bc` expands to `:BC`.
+
+For diagnosis, run `:checkhealth vim.pack vim.lsp auto-session which-key`. If an LSP does not attach, check its executable on `PATH`, its project variable, and, for clangd, the compilation database location.
