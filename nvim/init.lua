@@ -86,11 +86,16 @@ end
 vim.lsp.config("clangd", {
   cmd = { "clangd", "--background-index" },
   root_dir = function(bufnr, on_dir)
-    local file = vim.uv.fs_realpath(vim.api.nvim_buf_get_name(bufnr))
-    if not file then
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    if name == "" then
       return
     end
-    local root = vim.fs.root(file, "compile_commands.json")
+    -- New files have no realpath yet; resolve their parent to retain symlink handling.
+    local path = vim.uv.fs_realpath(name) or vim.uv.fs_realpath(vim.fs.dirname(name))
+    if not path then
+      return
+    end
+    local root = vim.fs.root(path, "compile_commands.json")
     if root and clangd_projects[vim.fs.normalize(root)]
       and vim.fn.filereadable(root .. "/compile_commands.json") == 1
     then
