@@ -68,19 +68,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+local function env_list(name)
+  local entries = {}
+  for _, entry in ipairs(vim.split(vim.env[name] or "", ":", { plain = true, trimempty = true })) do
+    entry = vim.trim(entry)
+    if entry ~= "" then
+      table.insert(entries, entry)
+    end
+  end
+  return entries
+end
+
 -- Example: export NVIM_CLANGD_PROJECTS="$HOME/project-one:$HOME/project-two"
 local clangd_projects = {}
-for _, dir in ipairs(vim.split(vim.env.NVIM_CLANGD_PROJECTS or "", ":", {
-  plain = true,
-  trimempty = true,
-})) do
-  dir = vim.trim(dir)
-  if dir ~= "" then
-    local path = vim.fn.fnamemodify(vim.fn.expand(dir), ":p")
-    local realpath = vim.uv.fs_realpath(path)
-    if realpath then
-      clangd_projects[vim.fs.normalize(realpath)] = true
-    end
+for _, dir in ipairs(env_list("NVIM_CLANGD_PROJECTS")) do
+  local path = vim.fn.fnamemodify(vim.fn.expand(dir), ":p")
+  local realpath = vim.uv.fs_realpath(path)
+  if realpath then
+    clangd_projects[vim.fs.normalize(realpath)] = true
   end
 end
 
@@ -104,21 +109,15 @@ vim.lsp.config("clangd", {
     end
   end,
 })
-vim.lsp.enable("clangd")
+vim.lsp.enable("clangd", next(clangd_projects) ~= nil)
 
 -- Example: export NVIM_PYRIGHT_PROJECTS="$HOME/project-one:$HOME/project-two"
 local pyright_projects = {}
-for _, dir in ipairs(vim.split(vim.env.NVIM_PYRIGHT_PROJECTS or "", ":", {
-  plain = true,
-  trimempty = true,
-})) do
-  dir = vim.trim(dir)
-  if dir ~= "" then
-    local path = vim.fn.fnamemodify(vim.fn.expand(dir), ":p")
-    local realpath = vim.uv.fs_realpath(path)
-    if realpath and vim.fn.isdirectory(realpath) == 1 then
-      table.insert(pyright_projects, vim.fs.normalize(realpath))
-    end
+for _, dir in ipairs(env_list("NVIM_PYRIGHT_PROJECTS")) do
+  local path = vim.fn.fnamemodify(vim.fn.expand(dir), ":p")
+  local realpath = vim.uv.fs_realpath(path)
+  if realpath and vim.fn.isdirectory(realpath) == 1 then
+    table.insert(pyright_projects, vim.fs.normalize(realpath))
   end
 end
 table.sort(pyright_projects, function(a, b)
@@ -146,7 +145,7 @@ vim.lsp.enable("pyright", #pyright_projects > 0)
 require("gitsigns").setup()
 require("nvim-tree").setup({
   update_focused_file = { enable = true },
-  git = { enable = true, timeout = 5000 },
+  git = { timeout = 5000 },
 })
 require("which-key").setup({
   delay = 400,
@@ -154,16 +153,7 @@ require("which-key").setup({
 })
 
 -- Example: export NVIM_SESSION_DIRS="$HOME/project-one:$HOME/project-two"
-local session_dirs = {}
-for _, dir in ipairs(vim.split(vim.env.NVIM_SESSION_DIRS or "", ":", {
-  plain = true,
-  trimempty = true,
-})) do
-  dir = vim.trim(dir)
-  if dir ~= "" then
-    table.insert(session_dirs, dir)
-  end
-end
+local session_dirs = env_list("NVIM_SESSION_DIRS")
 
 require("auto-session").setup({
   enabled = #session_dirs > 0,
