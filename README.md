@@ -4,7 +4,7 @@ Some vim scripts that make my life easier.<br>
 
 # Current setup
 
-My Neovim configuration is documented [below](#neovim). The Vim setup is retained for reference.
+My [Neovim](#neovim) and [Ghostty](#ghostty) configurations are documented below. The Vim setup is retained for reference.
 
 # Vim setup
 
@@ -154,3 +154,37 @@ The leader key is Space. These mappings use Normal mode unless stated otherwise.
 `:BC` compares the saved current file against the Git index. `:BC HEAD` (or another commit, branch, or tag) compares it against that revision. Save edits first. The command uses `git difftool --tool=bc` asynchronously; unchanged files produce no comparison window. Lowercase `:bc` expands to `:BC`.
 
 For diagnosis, run `:checkhealth vim.pack vim.lsp auto-session which-key`. If an LSP does not attach, check its executable on `PATH`, its project variable, and, for clangd, the compilation database location.
+
+# Ghostty
+
+Terminal configuration lives in [ghostty/config](ghostty/config). This setup is intended for macOS.
+
+## Setup
+
+Install Ghostty and make sure the Andale Mono font is available. From the repository root, with no existing `~/.config/ghostty`:
+
+```sh
+mkdir -p "$HOME/.config"
+ln -s "$PWD/ghostty" "$HOME/.config/ghostty"
+```
+
+If `XDG_CONFIG_HOME` is set, use `$XDG_CONFIG_HOME/ghostty` instead. Ghostty also loads configuration from `~/Library/Application Support/com.mitchellh.ghostty/` on macOS; values there can override this repository's settings. The `config` filename remains supported alongside `config.ghostty`. See the [configuration documentation](https://ghostty.org/docs/config#file-location).
+
+## Settings and shortcuts
+
+- Andale Mono at 18 points with the built-in Catppuccin Mocha theme, matching Neovim and bat. The theme supplies the text, background, cursor, and selection colors.
+- A non-blinking block cursor. `shell-integration-features = no-cursor` prevents shell integration from changing it to a bar; terminal applications can still change the cursor themselves.
+- Eight points of horizontal padding and six points of vertical padding.
+- The mouse pointer hides while typing, and window state is saved on exit.
+- Left Option acts as Alt for terminal shortcuts; right Option retains macOS character input.
+- Control + grave accent toggles a quick terminal at the top of the screen, using 40% of its height. The shortcut is global while Ghostty is running.
+
+On macOS, the global shortcut requires Ghostty to have Accessibility access in System Settings → Privacy & Security → Accessibility. See the [keybinding reference](https://ghostty.org/docs/config/reference#keybind).
+
+Reload configuration with Command + Shift + comma. Some changes require a new terminal or an application restart. To validate this file from the repository root without opening a terminal window:
+
+```sh
+/Applications/Ghostty.app/Contents/MacOS/ghostty +validate-config --config-file="$PWD/ghostty/config"
+```
+
+If `ghostty` is on `PATH`, it can replace the application-bundle path above.
