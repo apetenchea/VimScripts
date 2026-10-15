@@ -173,8 +173,24 @@ require("auto-session").setup({
 vim.cmd.colorscheme("catppuccin-mocha")
 vim.env.BAT_THEME = "Catppuccin Mocha"
 
--- Follow symlinked repositories and retain .gitignore rules.
-vim.env.FZF_DEFAULT_COMMAND = "rg --files --hidden --follow --no-ignore-exclude -g '!.git'"
+-- Search nested and symlinked repositories, including .git/info/exclude entries.
+-- Retain .gitignore rules and skip Git metadata in every repository.
+local rg_command = "rg --hidden --follow --no-ignore-exclude -g '!.git'"
+vim.env.FZF_DEFAULT_COMMAND = rg_command .. " --files"
+local rg_search = rg_command .. " --column --line-number --no-heading --color=always --smart-case -- "
+
+vim.api.nvim_create_user_command("Rg", function(opts)
+  vim.fn["fzf#vim#grep"](
+    rg_search .. vim.fn["fzf#shellescape"](opts.args),
+    vim.fn["fzf#vim#with_preview"](), opts.bang and 1 or 0
+  )
+end, { nargs = "*", bang = true, desc = "Search files, then fuzzy-filter matches" })
+
+vim.api.nvim_create_user_command("RG", function(opts)
+  vim.fn["fzf#vim#grep2"](
+    rg_search, opts.args, vim.fn["fzf#vim#with_preview"](), opts.bang and 1 or 0
+  )
+end, { nargs = "*", bang = true, desc = "Search files as you type" })
 
 local map = vim.keymap.set
 map("n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", { desc = "tree" })
@@ -187,7 +203,7 @@ map("i", "jk", "<Esc>")
 map("n", "<Left>", "<C-w>h")
 map("n", "<Right>", "<C-w>l")
 map("n", "<leader>f", "<Cmd>Files<CR>", { desc = "File" })
-map("n", "<leader>s", "<Cmd>Rg<CR>", { desc = "Search" })
+map("n", "<leader>s", "<Cmd>RG<CR>", { desc = "Search" })
 map("n", "<leader>o", "<Cmd>Buffers<CR>", { desc = "Open buffer" })
 map("n", "<leader>b", "<Cmd>Gitsigns blame<CR>", { desc = "Blame" })
 map("n", "<leader>d", "<Cmd>Gvdiffsplit<CR>", { desc = "Diff" })
