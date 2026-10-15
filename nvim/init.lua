@@ -3,6 +3,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 local opt = vim.opt
+opt.timeoutlen = 300
 opt.number = true
 opt.numberwidth = 1
 opt.wrap = false
