@@ -3,6 +3,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 local opt = vim.opt
+opt.clipboard = "unnamedplus"
 opt.timeoutlen = 300
 opt.number = true
 opt.numberwidth = 1
@@ -183,6 +184,12 @@ vim.api.nvim_create_user_command("RG", function(opts)
 end, { nargs = "*", bang = true, desc = "Search files as you type" })
 
 local map = vim.keymap.set
+map("c", "<CR>", function()
+  if vim.fn.getcmdtype() == "/" and vim.fn.getcmdline() == "" then
+    return "<C-c><Cmd>nohlsearch<CR>"
+  end
+  return "<CR>"
+end, { expr = true, desc = "Clear highlights on an empty search" })
 map("n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", { desc = "tree" })
 vim.api.nvim_create_user_command("BC", function(opts)
   require("beyond_compare").open(opts.args)
