@@ -190,7 +190,7 @@ map("c", "<CR>", function()
   end
   return "<CR>"
 end, { expr = true, desc = "Clear highlights on an empty search" })
-map("n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", { desc = "tree" })
+map("n", "<leader>t", "<Cmd>NvimTreeToggle<CR>", { desc = "Tree" })
 vim.api.nvim_create_user_command("BC", function(opts)
   require("beyond_compare").open(opts.args)
 end, { nargs = "?", desc = "Beyond Compare: current file versus index or Git revision" })
