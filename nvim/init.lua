@@ -2,6 +2,11 @@ vim.g.mapleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- Use the local terminal's clipboard when editing over SSH.
+if vim.env.SSH_TTY or vim.env.SSH_CONNECTION then
+  vim.g.clipboard = "osc52"
+end
+
 local opt = vim.opt
 opt.clipboard = "unnamedplus"
 opt.timeoutlen = 300
