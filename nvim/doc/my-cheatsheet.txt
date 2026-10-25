@@ -1,0 +1,130 @@
+*my-cheatsheet.txt*              Personal Neovim reference
+
+===============================================================================
+QUICK REFERENCE                                                 *my-cheatsheet*
+
+Open with :Cheatsheet or :help my-cheatsheet. Leader is Space.
+
+Search this page with /word, then n / N for next / previous match.
+Press Ctrl-] on a |link| to follow it; Ctrl-T goes back.
+Close the help window with Ctrl-W q.
+
+    Files and search       |my-cheatsheet-files|
+    Git status and diffs   |my-cheatsheet-git|
+    Rollback               |my-cheatsheet-rollback|
+    Code navigation        |my-cheatsheet-code|
+    Editing and windows    |my-cheatsheet-editing|
+    Sessions and help      |my-cheatsheet-sessions|
+
+===============================================================================
+FILES AND SEARCH                                          *my-cheatsheet-files*
+
+    Space f     :Files          Find files by name
+    Space s     :RG             Search file contents as you type
+    Space o     :Buffers        Switch between open buffers
+    Space t     :NvimTreeToggle Toggle the file tree
+
+    :Rg pattern                 Search once, then fuzzy-filter matches
+    :RG pattern                 Start a live search with an initial pattern
+    /pattern                    Search in the current buffer
+    / then Enter                Clear search highlights (custom mapping)
+
+File and content searches start from the current working directory (:pwd).
+They include hidden files, follow symlinks, respect .gitignore, and skip .git
+metadata. Paths excluded only by .git/info/exclude are included.
+
+===============================================================================
+GIT STATUS AND DIFFS                                        *my-cheatsheet-git*
+
+    :Git                        Show staged, unstaged, and untracked files
+    :GFiles?                    Fuzzy-find files from Git status
+    Space d     :Gvdiffsplit     Compare the current file with the index
+    Space b     :Gitsigns blame  Show file blame
+    [c / ]c                     Jump to previous / next change
+    :Gitsigns preview_hunk      Inspect the change at the cursor in a popup
+    :Gitsigns preview_hunk_inline
+                                Inspect the change inline
+
+In :Git, move to a file and press Enter to open it.
+In diff mode, [c and ]c navigate diff blocks; otherwise they navigate Git hunks.
+A hunk is a group of changed lines. The index is Git's staging area.
+
+    :BC                         Compare the saved file with the index externally
+    :BC HEAD                    Compare the saved file with the latest commit
+    :BC branch-or-commit        Compare with another revision
+
+Beyond Compare requires bcomp on PATH and a saved, unmodified buffer.
+Lowercase :bc also works. An unchanged file produces no comparison window.
+
+===============================================================================
+ROLLBACK / RESET / DISCARD                             *my-cheatsheet-rollback*
+
+These are commands, not custom keyboard shortcuts.
+
+Current hunk: >
+    :Gitsigns reset_hunk
+<
+Selected lines, including part of a hunk:
+    Press V to select whole lines, extend the selection with j / k, then type
+    :Gitsigns reset_hunk and press Enter. Keep the automatically inserted range:
+>
+    :'<,'>Gitsigns reset_hunk
+<
+Single line:
+    Press V on that line and use the same range command.
+
+Whole buffer: >
+    :Gitsigns reset_buffer
+<
+With the default comparison base, resets restore the index version, preserving
+staged changes. They modify the editor buffer: u undoes the reset, and :w saves
+the result to disk. Inspect the hunk before resetting it.
+
+For the full reference: |gitsigns.reset_hunk()| |gitsigns.reset_buffer()|
+
+===============================================================================
+CODE NAVIGATION                                           *my-cheatsheet-code*
+
+    gd                          Go to definition
+    gD                          Go to declaration
+    Space u                     Find references, excluding declarations
+    Ctrl-o / Ctrl-i             Jump back / forward through visited locations
+
+The first three mappings are installed when an attached LSP supports them.
+clangd is restricted by NVIM_CLANGD_PROJECTS and requires compile_commands.json
+at the matching root. Pyright is restricted by NVIM_PYRIGHT_PROJECTS.
+
+===============================================================================
+EDITING AND WINDOWS                                    *my-cheatsheet-editing*
+
+    jk                          Leave Insert mode (300 ms mapping timeout)
+    u / Ctrl-r                  Undo / redo
+    :w                          Save the current buffer
+    Left / Right                Move to the window on the left / right
+    Ctrl-W h/j/k/l              Move between windows in any direction
+    Ctrl-W q                    Close the current window
+
+Normal-mode y / p use the system clipboard through unnamedplus. Over SSH, this
+configuration uses OSC 52; clipboard access depends on the local terminal.
+
+===============================================================================
+SESSIONS AND HELP                                       *my-cheatsheet-sessions*
+
+    :Cheatsheet                 Open this reference
+    :Commands                   Fuzzy-find commands
+    :Maps                       Browse key mappings
+    :Helptags                   Fuzzy-find help topics
+    :help topic                 Read a specific help topic
+    Space, then wait            Show available leader mappings with which-key
+    :checkhealth vim.pack vim.lsp auto-session which-key
+                                Check plugin and LSP configuration
+
+Automatic sessions are limited to NVIM_SESSION_DIRS. Start nvim without file
+arguments in an allowed directory to restore its session. Hidden buffers and
+blank windows are excluded; the missing-buffers health warning is expected.
+
+Edit this reference in nvim/doc/my-cheatsheet.txt. If adding or renaming *tags*,
+regenerate nvim/doc/tags with :helptags ~/.config/nvim/doc (adjust for XDG paths)
+and commit both files. No plugin is needed to display this page.
+
+vim:tw=78:ts=8:ft=help:norl:

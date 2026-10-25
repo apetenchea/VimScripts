@@ -188,6 +188,10 @@ vim.api.nvim_create_user_command("RG", function(opts)
   )
 end, { nargs = "*", bang = true, desc = "Search files as you type" })
 
+vim.api.nvim_create_user_command("Cheatsheet", function()
+  vim.cmd.help("my-cheatsheet")
+end, { desc = "Open the personal Neovim cheat sheet" })
+
 local map = vim.keymap.set
 map("c", "<CR>", function()
   if vim.fn.getcmdtype() == "/" and vim.fn.getcmdline() == "" then

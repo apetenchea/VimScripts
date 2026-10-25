@@ -133,6 +133,8 @@ Sessions retain window layouts and local options, but exclude blank windows and 
 
 ## Commands and mappings
 
+Run `:Cheatsheet` (or `:help my-cheatsheet`) for the personal reference, including Git status, diff inspection, and rollback commands. Search it with `/`, follow help links with `Ctrl-]`, and close it with `Ctrl-W q`. Its source is [nvim/doc/my-cheatsheet.txt](nvim/doc/my-cheatsheet.txt).
+
 The leader key is Space. These mappings use Normal mode unless stated otherwise.
 
 | Key | Action |
