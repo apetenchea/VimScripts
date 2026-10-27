@@ -53,7 +53,8 @@ A hunk is a group of changed lines. The index is Git's staging area.
     :BC HEAD                    Compare the saved file with the latest commit
     :BC branch-or-commit        Compare with another revision
 
-Beyond Compare requires bcomp on PATH and a saved, unmodified buffer.
+Beyond Compare requires bcomp or bcompare and a saved, unmodified buffer.
+Git finds the launcher on PATH or uses the configured difftool.bc.path.
 Lowercase :bc also works. An unchanged file produces no comparison window.
 
 ===============================================================================

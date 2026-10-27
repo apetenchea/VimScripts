@@ -100,7 +100,7 @@ Install these executables on `PATH`:
 - `git`, `fzf`, and `rg` (ripgrep) for plugins, Git integration, and search.
 - `bat` for syntax-highlighted previews, with the `Catppuccin Mocha` theme available in `bat --list-themes`.
 - `clangd` for C/C++ projects and `pyright-langserver` for Python projects, if enabled below.
-- Beyond Compare's `bcomp` launcher for `:BC`.
+- Beyond Compare's `bcomp` or `bcompare` launcher for `:BC`. Git resolves the launcher; use `difftool.bc.path` to configure a custom location.
 
 A Nerd Font is useful for the file-tree icons. Language servers and external tools are installed separately from the plugins.
 

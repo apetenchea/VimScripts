@@ -13,9 +13,7 @@ function M.open(ref)
     return fail("Beyond Compare: save your edits with :write first")
   end
   file = vim.uv.fs_realpath(file) or file
-  if vim.fn.executable("bcomp") ~= 1 then
-    return fail("Beyond Compare: bcomp is missing from PATH")
-  end
+  -- Git resolves bcomp/bcompare and honors difftool.bc.path itself.
 
   local function git(args, cwd, on_success, timeout)
     local cmd = { "git" }
