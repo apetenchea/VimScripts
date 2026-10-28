@@ -42,6 +42,7 @@ GIT STATUS AND DIFFS                                        *my-cheatsheet-git*
     :Gchanges develop           Use develop as the base (Tab completes refs)
     Space d     :Gvdiffsplit     Compare the current file with the index
     Space b     :Gitsigns blame  Show file blame
+    Space g     :Gbase           Toggle all gutters: main / index
     [c / ]c                     Jump to previous / next change
     :Gitsigns preview_hunk      Inspect the change at the cursor in a popup
     :Gitsigns preview_hunk_inline
@@ -54,6 +55,10 @@ first. Untracked files require git add before they appear. Press Enter on an
 entry to open it; :copen reopens the list. Uses :Git difftool --name-only base.
 In diff mode, [c and ]c navigate diff blocks; otherwise they navigate Git hunks.
 A hunk is a group of changed lines. The index is Git's staging area.
+:Gbase applies to all current and future buffers, and reports the baseline.
+It starts with the index each session. Navigation, previews, and resets follow
+the baseline: switch back before discarding only unstaged changes.
+This toggle does not change the target used by :Gchanges.
 
     :BC                         Compare the saved file with the index externally
     :BC HEAD                    Compare the saved file with the latest commit

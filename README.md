@@ -144,6 +144,7 @@ The leader key is Space. These mappings use Normal mode unless stated otherwise.
 | `<Space>o` | List open buffers |
 | `<Space>t` | Toggle the file tree |
 | `<Space>b` | Show Git blame |
+| `<Space>g` | Toggle all Git gutters between `main` and the index (`:Gbase`) |
 | `<Space>d` | Open a vertical Git diff |
 | `[c` / `]c` | Previous / next Git hunk, or diff change in diff mode |
 | `gd` / `gD` | Go to definition / declaration, when supported by an attached LSP |
@@ -158,6 +159,8 @@ The leader key is Space. These mappings use Normal mode unless stated otherwise.
 For diagnosis, run `:checkhealth vim.pack vim.lsp auto-session which-key`. If an LSP does not attach, check its executable on `PATH`, its project variable, and, for clangd, the compilation database location.
 
 `:Gchanges` (or `<Space>c`) lists working tree differences against the tip of `main`, including committed, staged, and unstaged changes to tracked files. Use `:Gchanges develop` to choose another target; Tab completes Git refs. Save buffers first; untracked files require `git add` before they appear. It runs Fugitive's `:Git difftool --name-only base`. Press Enter on a quickfix entry to open it, or use `:copen` to reopen the list.
+
+`:Gbase` toggles Gitsigns' baseline globally, including files opened later, and reports the selected baseline. It starts with the index each Neovim session. Hunk navigation, previews, and resets follow the selected baseline; switch back to the index before discarding only unstaged changes. This does not change the target used by `:Gchanges`.
 
 # Ghostty
 

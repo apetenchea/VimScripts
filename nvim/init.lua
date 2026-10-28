@@ -217,6 +217,26 @@ end, {
 })
 map("n", "<leader>c", "<Cmd>Gchanges<CR>", { desc = "Changed files against main" })
 
+local compare_main = false
+local changing_base = false
+vim.api.nvim_create_user_command("Gbase", function()
+  if changing_base then
+    return
+  end
+  local base = not compare_main and "main" or nil
+  changing_base = true
+  require("gitsigns").change_base(base, true, function(err)
+    changing_base = false
+    if err then
+      vim.notify("Gitsigns: " .. tostring(err), vim.log.levels.ERROR)
+      return
+    end
+    compare_main = base ~= nil
+    vim.notify("Git gutter baseline: " .. (base or "index"))
+  end)
+end, { desc = "Toggle all Git gutters between main and the index" })
+map("n", "<leader>g", "<Cmd>Gbase<CR>", { desc = "Toggle Git gutter baseline" })
+
 map("i", "jk", "<Esc>")
 map("n", "<Left>", "<C-w>h")
 map("n", "<Right>", "<C-w>l")
