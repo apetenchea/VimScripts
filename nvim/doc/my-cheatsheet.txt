@@ -38,6 +38,8 @@ GIT STATUS AND DIFFS                                        *my-cheatsheet-git*
 
     :Git                        Show staged, unstaged, and untracked files
     :GFiles?                    Fuzzy-find files from Git status
+    Space c     :Gchanges       List working tree differences against main
+    :Gchanges develop           Use develop as the base (Tab completes refs)
     Space d     :Gvdiffsplit     Compare the current file with the index
     Space b     :Gitsigns blame  Show file blame
     [c / ]c                     Jump to previous / next change
@@ -46,6 +48,10 @@ GIT STATUS AND DIFFS                                        *my-cheatsheet-git*
                                 Inspect the change inline
 
 In :Git, move to a file and press Enter to open it.
+:Gchanges fills quickfix with differences against the target branch's tip,
+including committed, staged, and unstaged changes to tracked files. Save buffers
+first. Untracked files require git add before they appear. Press Enter on an
+entry to open it; :copen reopens the list. Uses :Git difftool --name-only base.
 In diff mode, [c and ]c navigate diff blocks; otherwise they navigate Git hunks.
 A hunk is a group of changed lines. The index is Git's staging area.
 

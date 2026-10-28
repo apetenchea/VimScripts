@@ -205,6 +205,18 @@ vim.api.nvim_create_user_command("BC", function(opts)
 end, { nargs = "?", desc = "Beyond Compare: current file versus index or Git revision" })
 vim.cmd([[cnoreabbrev <expr> bc getcmdtype() == ':' && getcmdline() ==# 'bc' ? 'BC' : 'bc']])
 
+vim.api.nvim_create_user_command("Gchanges", function(opts)
+  local base = opts.args ~= "" and opts.args or "main"
+  vim.cmd.Git("difftool --name-only " .. vim.fn.shellescape(base) .. " --")
+end, {
+  nargs = "?",
+  complete = function(lead)
+    return vim.fn["fugitive#CompleteObject"](lead)
+  end,
+  desc = "List working tree differences against main or another branch",
+})
+map("n", "<leader>c", "<Cmd>Gchanges<CR>", { desc = "Changed files against main" })
+
 map("i", "jk", "<Esc>")
 map("n", "<Left>", "<C-w>h")
 map("n", "<Right>", "<C-w>l")
